@@ -1,0 +1,7 @@
+1. DaemonSets ensure that there's exactly one pod on every node in a cluster. For example, if your cluster has various nodes, DaemonSets will make sure that each node has one specific pod.
+2. These DaemonSets adapt to changes in cluster. If you add more nodes to a cluster, DaemonSets make sure there are enough pods for the new nodes.
+3. If you remove nodes, they clean up the extra pods. Deleting a DaemonSet removes all associated pods, ensuring specific tasks, are managed effectively in Kubernetes clusters.
+4. ReplicaSets are more suitable for scenarios where you need to ensure a certain number of replicas of a pod are running in the cluster for redundancy, scaling, or load balancing purposes.
+5. ReplicaSets are typically used for stateless applications that can run on any node in the cluster, whereas DaemonSets are used for stateful or node-specific workloads.
+EXAMPLE: Resource Isolation
+If you need to ensure that a specific pod runs in isolation on each node, DaemonSets are a better choice. ReplicaSets create multiple replicas of a pod, whereas DaemonSets create one pod per node.
