@@ -1,10 +1,13 @@
 In the deployment setup, change the image name.
+
 To apply the deployment update, use the command 'kubectl apply -f deployment.yaml'.
+
 Kubernetes will begin the process of creating new pods, each with the modified image. It will gradually replace the old pods with these new instances.
+
 All pods will run successfully with the new image.
 
 apiVersion: apps/v1 kind: Deployment metadata: name: my-app spec: replicas: 1 selector: matchLabels: app: my-app template: metadata: labels: app: my-app spec: containers: - name: my-app image: my-app:latest
 
 The deployment setup is named "my-app" with just one copy running. Inside this setup, there's a container named "my-app," and it's using an image called "my-app:latest."
 
-Now, suppose you want to update this image. if you want to switch to "my-app:1.2.3," you just edit that line to say "my-app:1.2.3." It's quick and straightforward.
+Now, If we want to update this image and want to switch to "my-app:1.2.3," we just edit that line to say "my-app:1.2.3." It's quick and straightforward.
