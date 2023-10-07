@@ -1,0 +1,10 @@
+Check the pod logs for issues using 'kubectl logs pod-name>'.
+Run 'kubectl get rs' to check the status of the ReplicaSet.
+Execute 'kubectl get svc' to check the service configuration.
+Check that the NodePort and firewall settings are accurate.
+Use 'kubectl get nodes' to check the health of the nodes.
+Examine cloud security settings.
+Verify application settings and code.
+Test internal access from a debug pod.
+Look at external access concerns such as network or firewall
+Check the service and deployment YAML files for configuration mistakes.
