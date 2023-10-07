@@ -193,17 +193,20 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          15m
 redis        ClusterIP   10.109.57.57    <none>        6379/TCP         4m32s
 result       NodePort    10.103.92.46    <none>        5001:31001/TCP   4m32s
 vote         NodePort    10.97.130.126   <none>        5000:31000/TCP   4m32s
-6. take your publicIP (your instance IP) : NodePort ► open 2 browsers , one for VOTING and one for Results.
-My publicIP : 54.169.231.45        
-For VOTING  : 54.169.231.45:31002
-For RESULT  : 54.169.231.45:31003
-7. try voting and see the results paralelly in results page.
-Followed the same as mentioned 
---------------------------------------------------------------------------------------------------------------
-8. Now try to delete the Pods one by one (first voting Pod, then worker pod, then db pod) and see what happens to the voting and result app after deleting. 
-1st ► VOTE pod ► Observe what happens both in frontEnd & in Unix
-2nd ► WORKER pod  ► Observe what happens both in frontEnd & in Unix
-3rd ► DB pod ► Observe what happens both in frontEnd & in Unix"
+
+=> Take your publicIP (your instance IP) : NodePort ► open 2 browsers , one for VOTING and one for Results.
+   My publicIP : 54.169.231.45        
+   For VOTING  : 54.169.231.45:31002
+   For RESULT  : 54.169.231.45:31003
+
+=>  Try voting and see the results simultaneously on the results page.
+
+=> Let us observe the changes in the voting app and result app after deleting the voting Pod, the worker pod, and the db pod one after the other.
+ 
+   1st ► VOTE pod ► Observe what happens both in frontEnd & in Unix
+   2nd ► WORKER pod  ► Observe what happens both in frontEnd & in Unix
+   3rd ► DB pod ► Observe what happens both in frontEnd & in Unix"
+
 [root@ip-172-31-38-157 k8s-specifications]# kubectl get po
 NAME                      READY   STATUS    RESTARTS   AGE
 db-b54cd94f4-fhflh        1/1     Running   0          12m
@@ -215,8 +218,9 @@ worker-dd46d7584-kpvfj    1/1     Running   0          12m
 
  
 
-9. My observations
-1st ► VOTE pod ► After deleting the VOTE POD new vote pod was generated but no disruption in the entire application was observed as VOTE POD does not contains any data.
+=> My observations:
+
+1st ► VOTE pod ► The removal of the "VOTE POD" and the subsequent creation of a new one did not cause any disruptions to the entire application because the "VOTE POD" did not store any crucial data.
 [root@ip-172-31-38-157 k8s-specifications]# kubectl delete po vote-94849dc97-whl5d
 pod "vote-94849dc97-9srmq" deleted
 [root@ip-172-31-38-157 k8s-specifications]# kubectl get po
@@ -231,7 +235,7 @@ worker-dd46d7584-kpvfj    1/1     Running   0          15m
 
  
 
-2nd ► WORKER pod  ► After deleting the WORKER POD all the logs got vanished and new WORKER POD was generated as observed.
+2nd ► WORKER pod  ► Once the "WORKER POD" is deleted it was quite noticeable that all the logs just disappeared. But, right after that, I have observed new "WORKER POD" coming into existence.
 on worker side login:--
 Last login: Fri Sep 22 06:52:38 2023 from 223.228.223.163
 
@@ -309,7 +313,9 @@ Connecting to redis
 
  
 
-3rd ► DB pod ► After deleting DB POD the data is completely lost and new DB was generated as observed.
+3rd observation
+► DB pod ► When we deleted the DB POD, all the data was gone, like it disappeared. But, we did see a new DB being made afterward.
+
 [root@ip-172-31-38-157 k8s-specifications]# kubectl delete po db-b54cd94f4-fhflh
 pod "db-b54cd94f4-fhflh" deleted
 [root@ip-172-31-38-157 k8s-specifications]# kubectl get po
@@ -325,8 +331,8 @@ worker-dd46d7584-gvllz    1/1     Running   1          2m31s
 
  
 
-SUMMARY
-1. Commands that you used during the assignment. (not Mandatory, if you have time, please write it)
+SUMMARY:
+=> Commands that you used during the assignment. (not Mandatory, if you have time, please write it)
 cd $home
 yum install git -y
 git clone  https://github.com/ashishrpandey/example-voting-app
@@ -339,11 +345,7 @@ kubectl delet po vote-94849dc97-whl5d
 kubectl delete po worker-dd46d7584-kpvfj
 kubectl delete po db-b54cd94f4-fhflh
 
- 
-
-2.snapshot of logs (wherever possible, not mandatory, if you have time, please write it)
-
- 
+=> Snapshot of logs:
 
 [root@ip-172-31-42-115 ~]# kubectl  logs worker-dd46d7584-kpvfj
 Connected to db
@@ -362,25 +364,26 @@ Processing vote for 'b' by '4b526842e2afa8d'
 
  
 
-3. your comment on WHY result app STOPPED working after db pod stop
-As db pod contains all the data and that data appears in result app and after deleting db pod the data is completely lost so app will STOP working.
-
+=>  Your comment on why the result app STOPPED working after the db pod stop.
+    The result app stopped working because it couldn't find the data it needed in the DB POD after we deleted it.
  
 
-4. your answer to HOW YOU MADE THE RESULT POD work.
-BY voting again and it will appear the result in web browser hence the result pod will work as db pod contains the data .
+=> Your answer to HOW YOU MADE THE RESULT POD work.
+   We restored the functionality of the result pod by casting votes once more.
+   As a result, the outcomes were displayed in the web browser. This method was effective because the result pod relies on data stored in the DB pod, and by voting again,
+   we ensured that the necessary data was available for the result pod to function properly.
+    
 
- 
+=> Some jargons that you learned from the Training session
 
-5. Some jargons (just names are enough- dont need sentences) that you learnt from the  Training session
-Docker
-Microservices/k8 installation 
-PODS/TITBITs
-Controllers
-Services/Deployment
-VOTINGapp
-VOLUMES
-Networking
-HELM
-ISTIO
-AWS
+   Docker
+   Microservices/k8 installation 
+   PODS/TITBITs
+   Controllers
+   Services/Deployment
+   VOTINGapp
+   VOLUMES
+   Networking
+   HELM
+   ISTIO
+   AWS
